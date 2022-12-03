@@ -10,8 +10,8 @@ module.exports = async (user, mailType) => {
       port: 587,
       secure: true,
       auth: {
-        user: 'kumarmanishchuru89@gmail.com',
-        pass: 'akjebnyhflzbldhd'
+        user:process.env.EMAIL_USERNAME,
+        pass:process.env.EMAIL_PASSWORD
       },
     });
 
@@ -26,18 +26,18 @@ module.exports = async (user, mailType) => {
 
     let emailContent, mailOptions;
     if (mailType == "verifyemail") {
-      emailContent = `<div><h1>Please click on the below link to verify your email address</h1> <a href="http://localhost:3000/verifyemail/${encryptedToken}">${encryptedToken}</a>  </div>`;
+      emailContent = `<div><h1>Please click on the below link to verify your email address</h1> <a href="http://localhost:3001/verifyemail/${encryptedToken}">${encryptedToken}</a>  </div>`;
       mailOptions = {
-        from: "kumarmanishchuru89@gmail.com",
+        from: process.env.EMAIL_USERNAME,
         to: user.email,
         subject: "Verify Email For MERN Auth",
         html: emailContent,
       };
     } else {
-      emailContent = `<div><h1>Please click on the below link to reset your password</h1> <a href="http://localhost:3000/resetpassword/${encryptedToken}">${encryptedToken}</a>  </div>`;
+      emailContent = `<div><h1>Please click on the below link to reset your password</h1> <a href="http://localhost:3001/resetpassword/${encryptedToken}">${encryptedToken}</a>  </div>`;
 
       mailOptions = {
-        from: "kumarmanishchuru89@gmail.com",
+        from:process.env.EMAIL_USERNAME,
         to: user.email,
         subject: "Reset password For MERN Auth",
         html: emailContent,
